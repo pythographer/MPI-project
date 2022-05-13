@@ -1,0 +1,353 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\DeclareUnicodeCharacter{2212}{-}
+
+\title{A theoretical and experimental comparison of sorting algorithms}
+\author{Andrei Suba\\
+Student at Computer Science,\\
+West University,\\
+Timișoara, Romania\\
+\textbf{Email:} \texttt{andrei.suba00@e-uvt.ro}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Several sorting algorithms from Algorithms and Data Structures subject were analyzed in order to asses their performance based on different sets of random data represented as arrays ranging in size for the purpose of estimating their efficiency. A bigger picture will be drawn throughout the paper displaying the importance of carefully selecting the best sorting algorithms for the best data set and the needs required. 
+\end{abstract}
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+This paper is intended to provide a better view of the current sorting algorithms that we had studied in the Algorithms and Data Structures lecture from the first semester.\\
+Each sorting algorithm presented in the Table of Contents will be thoroughly explained both from a theoretical point of view and from an experimental point of view.\hfill \break \\
+In order to assess a practical meaning to the sorting algorithms, a program was developed to mark their performance on random lists of numbers which varies in length starting from 10 numbers, up to 150.000 numbers.\\
+The purpose of this paper is to provide a “hands-on” experience on our studies from the Algorithms and Data Structures subject through measurements and comparisons between the different sorting algorithms.
+\clearpage
+
+\section{Theoretical approach}
+
+The algorithms first will be first explained from a theoretical point of view in order to better understand the mechanism and idea behind them.
+
+\subsection{Bubble Sort}
+
+Bubble Sort is one of the simplest sorting algorithms that works by repeatedly swapping the adjacent elements if they are in a wrong order.\\
+The algorithm passes through the array $\textbf{n} \times \textbf{n}$ times in order to correctly verify that the items are correctly sorted.\hfill \break \\
+
+\noindent\underline{Example:}\hfill \break \\
+
+\noindent\textbf{First Pass:}
+\begin{itemize}
+\setlength{\itemindent}{.2in}
+    \item (\textbf{5 1} 4 2 8 ) $\rightarrow$ (\textbf{1 5} 4 2 8 ) Swaps the first two elements since $ 5 > 1. $
+    \item (1 \textbf{5 4} 2 8 ) $\rightarrow$ (1 \textbf{4 5} 2 8 ) Swap since $ 5 > 4. $
+    \item (1 4 \textbf{5 2} 8 ) $\rightarrow$ (1 4 \textbf{2 5} 8 ) Swaps since $ 5 > 2. $
+    \item (1 4 2 \textbf{5 8} ) $\rightarrow$ (1 4 2 \textbf{5 8} ) Now since $ 8 > 5. $ we go to the next pass.\hfill \break 
+\end{itemize}
+\noindent\textbf{Second Pass:}
+\begin{itemize}
+\setlength{\itemindent}{.2in}
+    \item (\textbf{1 4} 2 5 8 ) $\rightarrow$ (\textbf{1 4} 2 5 8 ) 
+    \item (1 \textbf{4 2} 5 8 ) $\rightarrow$ (1 \textbf{2 4} 5 8 ) Swap since $ 4 > 2. $
+    \item (1 2 \textbf{4 5} 8 ) $\rightarrow$ (1 2 \textbf{4 5} 8 ) 
+    \item (1 2 4 \textbf{5 8} ) $\rightarrow$ (1 2 4 \textbf{5 8} )\hfill \break \\
+    Even if the array is already sorted, the design of the algorithm makes it necessary to
+    pass for another eight(8) times through the whole array without any occurrence of a swap in order
+    to know that it is sorted.\hfill \break 
+\end{itemize}
+\noindent\textbf{Third Pass:}
+\begin{itemize}
+\setlength{\itemindent}{.2in}
+    \item (\textbf{1 2} 4 5 8 ) $\rightarrow$ (\textbf{1 2} 4 5 8 ) 
+    \item (1 \textbf{2 4} 5 8 ) $\rightarrow$ (1 \textbf{2 4} 5 8 ) 
+    \item (1 2 \textbf{4 5} 8 ) $\rightarrow$ (1 2 \textbf{4 5} 8 ) 
+    \item (1 2 4 \textbf{5 8} ) $\rightarrow$ (1 2 4 \textbf{5 8} )     
+\end{itemize}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{bubble-sort.png}
+\caption{\label{fig:bubble-sort} A short example of the algorithm's mechanism.}
+\end{figure}
+
+\paragraph{Worst and Average Time complexity: O(\ n^2\ )}: worst case occurs when the array is completely in a reversed order.
+
+\paragraph{Best Case Time Complexity: O( n )}: best case occurs when the array is already sorted.
+
+\paragraph{Auxiliary space: O( 1 )}: there is no need for the values to be stored separately. The array is sorted in place.
+\newline
+
+
+\subsection{Selection Sort}
+
+The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. \\
+The algorithm maintains two sub-arrays in a given array:
+\begin{itemize}
+    \item The sub-array which is \emph{sorted}.
+    \item The remaining sub-array which is \emph{unsorted}.
+\end{itemize}
+
+\noindent In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted sub-array is picked and moved to the sorted sub-array.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{selection_sort.jpg}
+\caption{\label{fig:selection_sort} Visualizing selection sort's mechanism.}
+\end{figure}
+
+\paragraph{Time complexity: O(\ n^2\ )}: as it is the same case with Bubble Sort, there are two nested loops which need to be traversed in order to assure the good sorting of the array.
+
+\paragraph{Auxiliary Space: O( 1 )}: it does not require extra space for the values in the array, thus sorting it in place.
+
+
+\subsection{Insertion Sort}
+
+Insertion Sort is similar to Selection Sort in the way in which the array is virtually split in
+two arrays, one which is sorted and one which is unsorted. The values from the
+unsorted array are placed at the right index in the sorted array. It also works by making
+comparisons between the current element and its predecessor.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm, height=5cm]{insertionsort.png}
+\caption{\label{fig:insertionsort} An explanation of the algorithm's technique.}
+\end{figure}
+
+\paragraph{Worst and Average Time complexity: O(\ n^2\ )}: there are two nested loops that
+needs to be passed in order for the algorithm to consider the array sorted.
+
+\paragraph{Best Case Time Complexity: O( n )}: best case occurs when the array is already sorted.
+
+\paragraph{Auxiliary space: O( 1 )}: there is no need for values to be hold separately.
+\newline
+
+
+
+
+\subsection{Merge Sort}
+
+Merge Sort is a Divide and Conquer (a big problem divided in smaller problems)
+algorithm. It divides the input array into two halves, calls itself for the two halves, and
+then merges the two sorted halves.\hfill \break \\
+The merge() function is used for merging two halves. The merge(arr, l, m, r) is a key
+process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two
+sorted sub-arrays into one.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm, height=8cm]{Merge-Sort-Tutorial.png}
+\caption{\label{fig:MergeSort} Divide and Conquer technique.}
+\end{figure}
+
+
+
+\paragraph{Time complexity: O( nlogn )}: because Merge Sort is a recursive algorithm that always divides the original array in two sub-arrays, the time complexity will always be the same for all three cases (Best, Average and Worst).
+
+\paragraph{Auxiliary Space: O( n )}: it does not require extra space for the values in the array, thus sorting it in place.\hfill \break \\
+
+
+\noindent\underline{Notes:}
+\begin{itemize}
+    \item \emph{Efficiency} - the time required for the Heap Sort algorithm increases logarithmic in comparison with previous algorithms (Bubble Sort, Selection Sort and Insertion Sort).
+    \item \emph{Memory usage} - memory usage is minimal compared to other efficient algorithms (we will analyze Radix Sort).
+\end{itemize}
+
+
+
+
+\subsection{Heap Sort}
+
+Heap sort is a comparison-based sorting technique based on Binary Heap data
+structure. It is similar to selection sort where we first find the minimum element and
+place the minimum element at the beginning. We repeat the same process for the
+remaining elements.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm, height=4cm]{heap1.jpg}
+\caption{\label{fig:heap1} Initially.}
+\end{figure}
+
+\hline
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm, height=4cm]{heap2.jpg}
+\caption{\label{fig:heap2} After.}
+\end{figure}
+
+\hfill \break \\
+\underline{Binary Heap} is a Complete Binary Tree where items are stored in a special order such
+that the value in a parent node is greater(or smaller) than the values in its two children
+nodes. The former is called max heap and the latter is called min-heap. The heap can
+be represented by a binary tree or array.
+\paragraph{Time complexity: O( nlogn )}: has the same complexity as Merge Sort but it follows a different approach based on the binary trees idea.
+
+\paragraph{Auxiliary Space: O( n )}: a copy of the array is made in order to sort it.\hfill \break \\
+
+\noindent\underline{Notes:}
+\begin{itemize}
+    \item \emph{Efficiency} - the time required for the Heap Sort algorithm increases logarithmic in comparison with previous algorithms (Bubble Sort, Selection Sort and Insertion Sort).
+    \item \emph{Memory usage} - memory usage is minimal compared to other efficient algorithms.
+\end{itemize}
+
+
+\subsection{Radix Sort}
+
+Radix Sort is using a different approach than the other sorting algorithms. It does a digit
+by digit sorting starting from the least significant digit (i.e. the last digit of a number)
+using counting sort (or any stable algorithm) as a subroutine to sort.\\
+Radix Sort is usually used for sorting big lists where the performance is a big issue.\hfill \break \\
+
+
+\noindent\underline{Example:}
+
+\begin{enumerate}
+    \item \textbf{Array:} (170 45 75 2 24 92 90)
+    \item \textbf{1st pass:} (17\textbf{0} 9\textbf{0} \textbf{2} 9\textbf{2} 2\textbf{4} 4\textbf{5} 7\textbf{5})
+    \item \textbf{2nd pass:} ( \textbf{\_}2 \textbf{2}4 \textbf{4}5 1\textbf{7}0 \textbf{7}5 \textbf{9}0 \textbf{9}2)
+    \item \textbf{3rd pass:} ( \textbf{\_}2 \textbf{\_}24 \textbf{\_}45 \textbf{\_}75 \textbf{\_}90 \textbf{\_}92 \textbf{1}70) The list is sorted.
+\end{enumerate}
+
+\paragraph{Time complexity: O( nk )}: where \textbf{‘k’} represents the maximum number of digits of a number. Depending on this, the sorting algorithm is faster, but insignificant when dealing with thousands of random elements within a list.
+
+\paragraph{Auxiliary Space: O( n+k )}: the algorithm makes a lot of temporary copies of the elements in order for the subroutine sorting algorithm to perform.\hfill \break \\
+
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm, height=4cm]{radix.png}
+\caption{\label{fig:Radix} Sorting procedure.}
+\end{figure}
+
+
+
+
+
+
+\section{Experimental approach}
+\label{code}
+\subsection{The C program}
+
+A program written in C was developed for the purpose of evaluating the performance of the above mentioned sorting algorithms.\\
+The code contains a \texttt{struct average} to keep a record of the time spent sorting multiple random arrays for every algorithm described above.
+\begin{verbatim}
+    struct average{
+        double time;
+        double sum;
+        int count;
+    } bubble, selection, insertion, Merge, heap, radix;
+\end{verbatim}
+
+The program waits for the user input regarding the size of the arrays and the number of tests to be run (the number of arrays to be generated).\\
+The \emph{randomness} is achieved by using the \texttt{rand()} and \texttt{srand()} functions from the standard library \texttt{<stdlib.h>}, pairing it with a \texttt{seed} which is originally set to \textbf{1}. \\
+By doing so, the people who use the program for measurements on different sizes of arrays can achieve more or less the same results (there are small differences in the times obtained for the same input) because the seed is incremented at each iteration in the number of tests using a custom \texttt{randomize()} function:
+
+\begin{verbatim}
+    void randomize(int arr[],int size,int *seed){
+        srand(*seed);
+        for(int i = 0; i < size; i++){
+            arr[i] = rand() % size;
+        }
+        *seed += 1;
+    }
+\end{verbatim}
+
+\clearpage
+
+\subsection{Results}
+\noindent The result were obtained by running the algorithms on 100 tests using an Intel I7-108070H CPU with a frequency of 5.0 GHz, single threaded.
+\newline
+\newline
+\noindent
+\begin{tabularx}{1.25\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+ \hline
+ Algorithms & 10 elements & 100 elements & 1.000 elements & 10.000 elements & 100.000 elements & 150.000 elements\\
+ \hline
+ Bubble Sort  & $0.5 \times {10^{-5}}s$  & $11.9 \times {10^{-5}}s$  & $612.8 \times {10^{-5}}s$  & 0.2s  & 25.27s  &  59.3s\\
+ \hline
+ Selection Sort  & $0.3 \times {10^{-5}}s$  & $7.0 \times {10^{-5}}s$  & $89.3 \times {10^{-5}}s$  & 0.08s  & 8.7s  &  20.34s\\
+ \hline
+ Insertion Sort  & $0.2 \times {10^{-5}}s$  & $3.4 \times {10^{-5}}s$  & $51.7 \times {10^{-5}}s$  & 0.04s  & 4.91s  &  11.37s\\
+ \hline
+ Merge Sort  & $0.6 \times {10^{-5}}s$  & $4.8 \times {10^{-5}}s$  & $18.2 \times {10^{-5}}s$  & $11.3 \times {10^{-5}}s$  & 0.014s  &  0.022s\\
+ \hline
+ Heap Sort  & $0.4 \times {10^{-5}}s$  & $5.1 \times {10^{-5}}s$  & $15.4 \times {10^{-5}}s$  & $15.8 \times {10^{-5}}s$  & 0.021s  &  0.033s\\
+ \hline
+ Radix Sort  & $4.8 \times {10^{-5}}s$  & $7.7 \times {10^{-5}}s$  & $3.8 \times {10^{-5}}s$  & $3.8 \times {10^{-5}}s$  & 0.004s  &  0.007s\\
+
+\hline
+\end{tabularx}
+
+\newline
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm, height=10cm]{complexity.png}
+\caption{\label{fig:complexity} An analysis of complexity.}
+\end{figure}
+
+\clearpage
+
+
+
+\section{Final Conclusion}
+
+This paper is intended to showcase the different algorithms used in the Algorithms and Data Structure class by following a practical purpose: to see how sorting algorithms perform under different situations.\\
+The paper does not serve the purpose of a pure benchmark because the data sets
+can favor some algorithms and thus it shall not be seen as so.\\
+I had some fun studying again these algorithms and I have learned more by writing the program for the experimental part.
+
+\clearpage
+
+\section{Project links}
+
+\begin{itemize}
+    \item \href{https://github.com/pythographer/MPI-project/blob/main/project_improved.c}{C program} : the one discussed in the paper in section \nameref{code}.
+    \item \href{https://github.com/pythographer/MPI-project/blob/main/main.tex}{TeX file} : this paper written in \LaTeX.
+\end{itemize}
+
+\clearpage
+\section{Bibliography}
+\bibliographystyle{alpha}
+\noindent\begin{itemize}
+    \item \href{https://www.geeksforgeeks.org/bubble-sort/}{Bubble Sort - geeksforgeeks.org} $\rightarrow$ \autoref{fig:bubble-sort}
+    \item \href{https://medium.com/@paulsoham/selection-sort-df6c93d9da3d}{Selection Sort - medium.com} $\rightarrow$ \autoref{fig:selection_sort}
+    \item \href{https://www.geeksforgeeks.org/insertion-sort/}{Insertion Sort - geeksforgeeks.org} $\rightarrow$ \autoref{fig:insertionsort}
+    \item \href{https://www.geeksforgeeks.org/merge-sort/}{Merge Sort - geeksforgeeks.org}   $\rightarrow$ \autoref{fig:MergeSort}
+    \item \href{https://www.geeksforgeeks.org/heap-sort/}{Heap Sort - geeksforgeeks.org}     $\rightarrow$ \autoref{fig:heap1} and \autoref{fig:heap2}
+    \item \href{https://www.codingeek.com/algorithms/radix-sort-explanation-pseudocode-and-implementation/}{Radix Sort - codingeek.com} $\rightarrow$ \autoref{fig:Radix}
+    \item \href{https://www.hackerearth.com/practice/notes/sorting-and-searching-algorithms-time-complexities-cheat-sheet/}{Algorithms Complexity - hackerearth.com} $\rightarrow$ \autoref{fig:complexity}
+\end{itemize}
+
+
+\end{document}
